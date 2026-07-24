@@ -8,19 +8,26 @@ in
 {
   home.username = "yuta";
   home.homeDirectory = "/home/yuta";
-  programs.git.enable = true;
   home.stateVersion = "26.05";
+  
   programs.bash = {
     enable = true;
     shellAliases = {
-      btw = "echo I use nixos, btw";
       vim = "nvim";
+      nrs = "sudo nixos-rebuild switch --flake /home/yuta/nixos-dotfiles#seetrace";
     };
     initExtra = ''
       export PS1="\w "
     '';
   };
 
+  programs.git = {
+    enable = true;
+    userName = "seetrace";
+    userEmail = "seetrace@users.noreply.github.com";
+  };
+
+  # temporary will be replaced with loops for optimizations
   xdg.configFile."qtile" = {
     source = create_symlink "${dotfiles}/qtile/";
     recursive = true;
@@ -43,5 +50,6 @@ in
     nixpkgs-fmt
     nodejs
     gcc
+    gh
   ];
 }
