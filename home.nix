@@ -23,8 +23,12 @@ in
 
   programs.git = {
     enable = true;
-    userName = "seetrace";
-    userEmail = "seetrace@users.noreply.github.com";
+    settings = {
+      user = {
+        name = "yuta";
+        email = "seetrace@users.noreply.github.com";
+      };
+    };
   };
 
   # temporary will be replaced with loops for optimizations
@@ -50,7 +54,6 @@ in
     nixpkgs-fmt
     nodejs
     gcc
-    gh
     openssh
   ];
 }
