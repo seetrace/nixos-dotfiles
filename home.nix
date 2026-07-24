@@ -51,5 +51,6 @@ in
     nodejs
     gcc
     gh
+    openssh
   ];
 }
