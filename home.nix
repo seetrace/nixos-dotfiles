@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  dotfiles = "${config.home.homeDirectory}/nixos-dotfiles/config";
+  dotfiles = "${config.home.homeDirectory}/nixos-dotfiles/modules";
   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
 in
 
@@ -17,6 +17,7 @@ in
       nrs = "sudo nixos-rebuild switch --flake /home/yuta/nixos-dotfiles#seetrace";
     };
     initExtra = ''
+      feh --bg-fill /home/yuta/wp.jpg
       export PS1="\w "
     '';
   };
@@ -55,5 +56,6 @@ in
     nodejs
     gcc
     openssh
+    feh
   ];
 }
