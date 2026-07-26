@@ -3,6 +3,10 @@
 let
   dotfiles = "${config.home.homeDirectory}/nixos-dotfiles/modules";
   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
+
+  configs = {
+    
+  };
 in
 
 {
@@ -17,9 +21,14 @@ in
       nrs = "sudo nixos-rebuild switch --flake /home/yuta/nixos-dotfiles#seetrace";
     };
     initExtra = ''
-      feh --bg-fill /home/yuta/wp.jpg
-      export PS1="\w "
+      export PS1="\[\e[38;5;39m\]╭─[ \u@\h \w ]\n\[\e[38;5;39m\]╰─❯\[\e[0m\] "
     '';
+  };
+
+  services.picom = {
+    enable = true;
+    backend = "glx";
+    vSync = true;
   };
 
   programs.git = {
@@ -31,7 +40,7 @@ in
       };
     };
   };
-
+  
   # temporary will be replaced with loops for optimizations
   xdg.configFile."qtile" = {
     source = create_symlink "${dotfiles}/qtile/";
@@ -55,7 +64,5 @@ in
     nixpkgs-fmt
     nodejs
     gcc
-    openssh
-    feh
   ];
 }

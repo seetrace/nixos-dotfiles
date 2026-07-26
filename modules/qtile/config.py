@@ -5,6 +5,14 @@ from libqtile.utils import guess_terminal
 import os
 import subprocess
 
+@hook.subscribe.startup_once
+def startup():
+    subprocess.run(["xrandr", "--output", "HDMI-0", "--dpi", "100"])
+    subprocess.run(["xrandr", "--output", "HDMI-0", "--primary"])
+    subprocess.run(["xrandr", "--output", "DP-4", "--off"])
+    subprocess.Popen(["picom"])
+    subprocess.Popen(["feh", "--bg-fill", "/home/yuta/wp.jpg"])
+
 mod = "mod4"
 terminal = guess_terminal()
 
@@ -119,7 +127,7 @@ def C(x): return x[0] if isinstance(x, (list, tuple)) else x
 
 layout_theme = {
     "border_width" : 1,
-    "margin" : 1,
+    "margin" : 13,
     "border_focus" : colors[6],
     "border_normal" : colors[0],
 }
@@ -164,7 +172,7 @@ screens = [
                 ),
                 widget.Prompt(
                     font = "JetBrainsMono Nerd Font",
-                    fontsize=14,
+                    fontsize=18,
                     foreground = colors[1]
                 ),
                 widget.GroupBox(
@@ -272,7 +280,7 @@ screens = [
                 widget.Spacer(length= 8),
             ],
             margin=[0, 0, 0, 0], 
-            size=30
+            size=35
         ),
     ),
 ]
