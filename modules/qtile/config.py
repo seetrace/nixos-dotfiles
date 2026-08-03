@@ -24,23 +24,15 @@ keys = [
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
     Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
-    # Move windows between left/right columns or move up/down in current stack.
-    # Moving out of range in Columns layout will create new column.
     Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
     Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
     Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
-    # Grow windows. If current window is on the edge of screen and direction
-    # will be to screen edge - window would shrink.
     Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
     Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
     Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
     Key(
         [mod, "shift"],
         "Return",
@@ -48,7 +40,6 @@ keys = [
         desc="Toggle between split and unsplit sides of stack",
     ),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-    # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key(
@@ -69,9 +60,6 @@ keys = [
     ),
 ]
 
-# Add key bindings to switch VTs in Wayland.
-# We can't check qtile.core.name in default config as it is loaded before qtile is started
-# We therefore defer the check until the key binding is run by using .when(func=...)
 for vt in range(1, 8):
     keys.append(
         Key(
@@ -88,46 +76,35 @@ groups = [Group(i) for i in "123456789"]
 for i in groups:
     keys.extend(
         [
-            # mod + group number = switch to group
             Key(
                 [mod],
                 i.name,
                 lazy.group[i.name].toscreen(),
                 desc=f"Switch to group {i.name}",
             ),
-            # mod + shift + group number = switch to & move focused window to group
-            # Key(
-            #     [mod, "shift"],
-            #     i.name,
-            #     lazy.window.togroup(i.name, switch_group=True),
-            #     desc=f"Switch to & move focused window to group {i.name}",
-            # ),
-            # Or, use below if you prefer not to switch to that group.
-            # # mod + shift + group number = move focused window to group
             Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
                 desc="move focused window to group {}".format(i.name)),
         ]
     )
 
 colors = [
-    ["#24283b", "#24283b"],  # bg        (primary.background)
-    ["#c0caf5", "#c0caf5"],  # fg        (primary.foreground)
-    ["#414868", "#414868"],  # color01   (normal.black)
-    ["#f7768e", "#f7768e"],  # color02   (normal.red)
-    ["#9ece6a", "#9ece6a"],  # color03   (normal.green)
-    ["#e0af68", "#e0af68"],  # color04   (normal.yellow)
-    ["#7aa2f7", "#7aa2f7"],  # color05   (normal.blue)
-    ["#bb9af7", "#bb9af7"],  # color06   (normal.magenta)
-    ["#7dcfff", "#7dcfff"],  # color15   (bright.cyan)
-    ["#565f89", "#565f89"]   # color[9]  (bright.black)
+    ["#303446", "#303446"],  # background (base)
+    ["#c6d0f5", "#c6d0f5"],  # foreground (text)
+    ["#51576d", "#51576d"],  # black
+    ["#e78284", "#e78284"],  # red
+    ["#a6d189", "#a6d189"],  # green
+    ["#e5c890", "#e5c890"],  # yellow
+    ["#8caaee", "#8caaee"],  # blue
+    ["#ca9ee6", "#ca9ee6"],  # purple
+    ["#81c8be", "#81c8be"],  # cyan
+    ["#626880", "#626880"]   # gray
 ]
 
-# helper in case your colors are ["#hex", "#hex"]
 def C(x): return x[0] if isinstance(x, (list, tuple)) else x
 
 layout_theme = {
-    "border_width" : 1,
-    "margin" : 13,
+    "border_width" : 0,
+    "margin" : 10,
     "border_focus" : colors[6],
     "border_normal" : colors[0],
 }
@@ -169,6 +146,13 @@ screens = [
                     filename = "~/.config/qtile/icons/yutabtw.png",
                     scale = "False",
                     mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("qtilekeys-yad")},
+                ),
+                widget.TextBox(
+                    text = " Yuta, Seiya  seetrace  seetrace_ | ",
+                    font = "JetBrainsMono Nerd Font",
+                    foreground = colors[9],
+                    padding = 2,
+                    fontsize = 14
                 ),
                 widget.Prompt(
                     font = "JetBrainsMono Nerd Font",

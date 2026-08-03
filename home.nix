@@ -5,7 +5,9 @@ let
   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
 
   configs = {
-    
+    nvim = "nvim";
+    qtile = "qtile";
+    alacritty = "alacritty";
   };
 in
 
@@ -18,10 +20,13 @@ in
     enable = true;
     shellAliases = {
       vim = "nvim";
+      ls = "eza --icons --color=always --group-directories-first -l";
+      la = "eza --icons --color=always --group-directories-first -la";
+      ff = "fastfetch";
       nrs = "sudo nixos-rebuild switch --flake /home/yuta/nixos-dotfiles#seetrace";
     };
     initExtra = ''
-      export PS1="\[\e[38;5;39m\]╭─[ \u@\h \w ]\n\[\e[38;5;39m\]╰─❯\[\e[0m\] "
+      export PS1="\[\e[38;2;140;170;238m\]╭─ 󱄅 \[\e[38;2;229;200;144m\]\u \[\e[38;2;166;209;137m\]@ \[\e[38;2;140;170;238m\]\w\n╰─❯ "
     '';
   };
 
@@ -41,23 +46,13 @@ in
     };
   };
   
-  # temporary will be replaced with loops for optimizations
-  xdg.configFile."qtile" = {
-    source = create_symlink "${dotfiles}/qtile/";
+  xdg.configFile = builtins.mapAttrs (name: subpath: {
+    source = create_symlink "${dotfiles}/${subpath}";
     recursive = true;
-  };
-  
-  xdg.configFile."nvim" = {
-    source = create_symlink "${dotfiles}/nvim/";
-    recursive = true;
-  };
-  
-  xdg.configFile."alacritty" = {
-    source = create_symlink "${dotfiles}/alacritty/";
-    recursive = true;
-  };
+  })
+  configs;
 
-  home.packages = with pkgs; [
+home.packages = with pkgs; [
     neovim
     ripgrep
     nil

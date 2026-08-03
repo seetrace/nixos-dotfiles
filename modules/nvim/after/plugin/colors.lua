@@ -1,4 +1,8 @@
-vim.cmd.colorscheme("tokyonight")
+require("catppuccin").setup({
+    flavour = "frappe",
+})
+
+vim.cmd.colorscheme("catppuccin")
 vim.cmd("hi Directory guibg=NONE")
 vim.cmd("hi SignColumn guibg=NONE")
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
