@@ -9,7 +9,7 @@ import subprocess
 def startup():
     subprocess.run(["xrandr", "--output", "HDMI-0", "--dpi", "100"])
     subprocess.run(["xrandr", "--output", "HDMI-0", "--primary"])
-    subprocess.run(["xrandr", "--output", "DP-4", "--off"])
+    subprocess.run(["xrandr", "--output", "DP-4", "--auto"])
     subprocess.Popen(["picom"])
     subprocess.Popen(["feh", "--bg-fill", "/home/yuta/wp.jpg"])
 
@@ -148,7 +148,7 @@ screens = [
                     mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("qtilekeys-yad")},
                 ),
                 widget.TextBox(
-                    text = " Yuta, Seiya  seetrace  seetrace_ | ",
+                    text = " Yuta, Seiya  seetrace  seetrace_  | ",
                     font = "JetBrainsMono Nerd Font",
                     foreground = colors[9],
                     padding = 2,

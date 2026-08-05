@@ -20,6 +20,7 @@ in
     enable = true;
     shellAliases = {
       vim = "nvim";
+      xsleep = "xset dpms force off";
       ls = "eza --icons --color=always --group-directories-first -l";
       la = "eza --icons --color=always --group-directories-first -la";
       ff = "fastfetch";
@@ -27,6 +28,7 @@ in
     };
     initExtra = ''
       export PS1="\[\e[38;2;140;170;238m\]╭─ 󱄅 \[\e[38;2;229;200;144m\]\u \[\e[38;2;166;209;137m\]@ \[\e[38;2;140;170;238m\]\w\n╰─❯ "
+      export PATH="/home/yuta/.local/bin:$PATH"
     '';
   };
 
