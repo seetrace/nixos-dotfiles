@@ -17,13 +17,6 @@ la = eza -la
 ff = fastfetch # need the LARP alias
 nrs = nixos-rebuid switch flake
 
-### Terminal prompt
-
-'''
-╭─ 󱄅 yuta @ ~
-╰─❯
-'''
-
 ### Plans for later
 
 1. fix all the BS in my configs
