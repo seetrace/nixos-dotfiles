@@ -23,4 +23,4 @@ nrs = nixos-rebuid switch flake
 2. switch to hyprland & Quickshell
 3. universall config modules
 
-@seetrace_ on Twitter (X) for more!
+@seetrace_ on Twitter (X) for more! pls follow!
