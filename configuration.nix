@@ -21,14 +21,14 @@
     enable32Bit = true;
   };
 
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
-    open = true; # For open source kernel modules (like Stallman intended)
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
+#  hardware.nvidia = {
+#    modesetting.enable = true;
+#    powerManagement.enable = false;
+#    powerManagement.finegrained = false;
+#    open = true; # For open source kernel modules (like Stallman intended)
+#    nvidiaSettings = true;
+#    package = config.boot.kernelPackages.nvidiaPackages.stable;
+#  };
 
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -38,7 +38,7 @@
     xkb.layout = "no";
     autoRepeatDelay = 200;
     autoRepeatInterval = 35;
-    videoDrivers = [ "nvidia" ];
+ #   videoDrivers = [ "nvidia" ];
     windowManager.qtile.enable = true;
   };
   services.displayManager.ly.enable = true;
